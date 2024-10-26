@@ -1,24 +1,20 @@
-import { useContext } from "react";
-import { AuthContext } from "./Authprovider";
-import PropTypes from "prop-types";
+import { useContext } from 'react'
+import { Navigate, useLocation } from 'react-router-dom'
+import { AuthContext } from './AuthProvider'
 
-const PrivetRout = ({children}) => {
-    const { user, loading } = useContext(AuthContext)
-    if (loading) {
-         return <span className="loading loading-spinner loading-lg">
+const PrivateRoute = ({ children }) => {
+  const { user, loading } = useContext(AuthContext)
+  const location = useLocation()
 
-         </span> }
-    if(!user){
-        children
-    }
-    return (
-        <div>
+  if (loading) {
+    return <span className="loading loading-spinner loading-lg"></span>
+  }
 
-        </div>
-    );
-};
+  if (!user) {
+    return <Navigate to="/login" state={{ from: location }} replace />
+  }
 
-export default PrivetRout;
-PrivetRout.propTypes = {
-    children:PropTypes.node
+  return children
 }
+
+export default PrivateRoute
