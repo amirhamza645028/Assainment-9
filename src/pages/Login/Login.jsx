@@ -8,12 +8,14 @@ import { BsGithub, BsGoogle } from "react-icons/bs";
 const Login = () => {
     const { login,
         signInWithGoogl,
-        signInwithGithube } = useContext(AuthContext)
+        signInwithGithub
+         } = useContext(AuthContext)
 
     const location = useLocation();
     const navigate = useNavigate();
     const goProvider = new GoogleAuthProvider();
     const giprovider = new GithubAuthProvider();
+    
     const fromHandelar = (e) => {
         e.preventDefault();
         const email = e.target.email.value;
@@ -44,7 +46,7 @@ const Login = () => {
     // githubhandelar
     const GitLoginhandelar = (e) => {
         e.preventDefault();
-        signInwithGithube(auth, giprovider)
+        signInwithGithub(auth, giprovider)
             .then(result => {
                 console.log(result.user)
                 navigate(location?.state ? location.state : "/");

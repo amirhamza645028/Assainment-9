@@ -1,7 +1,8 @@
 import { useLoaderData } from "react-router-dom";
 import Banner from "../Banner/Banner";
-import Cart from "../Cart/Cart";
+
 import PorpartyCard from "../PorpartyCard/PorpartyCard";
+import { Helmet } from "react-helmet";
 // import Estate from "../Estate/Estate";
 
 
@@ -9,8 +10,9 @@ const Home = () => {
     const data = useLoaderData();
     return (
         <div>
+            <Helmet><title>Rx_Property | Home</title></Helmet>
             <Banner></Banner>
-            <Cart></Cart>
+            
             {/* grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-5  */}
             {/* <Estate></Estate> */}
             <h3>thiw is heaede {data.lenght}</h3>

@@ -1,52 +1,80 @@
-import { useContext, } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useState, } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../provider/Authprovider";
+import Swal from "sweetalert2";
+import { FaEye, FaEyeSlash } from "react-icons/fa6";
+// import { createUserWithEmailAndPassword } from "firebase/auth";
+// import auth from "../../Firebase/firebse.config";
 // import auth from "../../Firebase/firebse.config";
 
 
 
 const Register = () => {
-    const {createUser} = useContext(AuthContext)
+    const { createUser, updateUserProfile } = useContext(AuthContext)
+    const navigate = useNavigate();
+    const [error, setError] = useState("");
+    const [registersuccess, setregistersuccess] = useState('')
+    const [showPassword, setshowPassword] = useState(false);
+
     // const [regError, setRegError] = useState()
 
     const fromHandelar = e => {
         e.preventDefault();
-        const email = e.target.email.value;
-        const password = e.target.password.value;
-        const name = e.target.name.value;
-        const photoURL = e.target.photoURL.value;
+        const form = e.target
+        const email = form.email.value;
+        const password = form.password.value;
+        const name = form.name.value;
+        const photoURL = form.photoURL.value;
         console.log(email, password, name, photoURL)
 
         if (password.length < 6) {
-            console.log('Please Password must be six characters long ')
+            setError('Please Password must be six characters long ')
             return
         }
         else if (!/[A-Z]/.test(password)) {
-            console.log('Please provide Capital character')
+            setError('Please provide Capital character')
             return
         }
 
 
-        createUser(email,password)
-        .then(result=>{
-            console.log(result.user)
-        })
-        .catch(error=>
-            {console.error(error)}
-        )
-        // createUserWithEmailAndPassword(auth, email, password)
+        createUser(email, password)
+            .then((userCdtRsltHiddn) => {
+                // console.log(result.user)
+                setregistersuccess('user create successfully')
+                const user = userCdtRsltHiddn.user;
+                if (user) {
+                    Swal.fire({
+                        position: "top-center",
+                        icon: "success",
+                        title: "Account is Created",
+                        showConfirmButton: false,
+                        timer: 1500,
+                    });
+                    handleUpdateUser(name, photoURL);
+                    navigate("/");
+                    form.reset();
+                }
 
-        //     .then(result => {
-        //         console.log(result.user)
-        //         console.log('user create successfully')
-                
+            })
+            .catch((error) => {
+                // const errorCode = error.code;
+                const errorMessage = error.message;
+                setError(errorMessage);
+                // ..
+            });
+        const handleUpdateUser = (name, photo) => {
+            const profile = {
+                displayName: name,
+                photoURL: photo,
+            };
+            updateUserProfile(profile)
+                .then(() => {
 
-        //     })
-        //     .catch(error => {
-        //         console.log(error)
-        //         // setregistererror(error.message)
-        //     }
-        //     )
+                })
+                .catch((error) => {
+                    console.error(error)
+                });
+        };
 
 
     }
@@ -90,28 +118,48 @@ const Register = () => {
                             <label className="label">
                                 <span className="label-text">Password</span>
                             </label>
-                            <input type="password"
+                            <input
+                                type={showPassword ? "text" : "password"}
                                 placeholder="password"
                                 name="password"
-                                className="input input-bordered" required />
+                                className="input input-bordered"
+                                required
+                            />
+                            <span
+                                onClick={() => setshowPassword(!showPassword)}
+                                className=" cursor-pointer absolute right-5 top-12 text-2xl"
+                            >
+                                {showPassword ? <FaEyeSlash /> : <FaEye />}
+                            </span>
+
+
                             <label className="label">
-                                <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
+                                <p className="text-green-500">
+                                    <input type="checkbox" name="remember me" id="" />
+                                    <span className="ms-3 font-bold">
+                                        I agree with{" "}
+                                        <span className="underline underline-offset-2">
+                                            Terms & Conditions
+                                        </span>
+                                    </span>
+                                </p>
                             </label>
                         </div>
-                        <label className="label">
-                            <p className="text-green-500">
-                                <input type="checkbox" name="remember me" id="" />
-                                <span className="ms-3 font-bold">
-                                    I agree with{" "}
-                                    <span className="underline underline-offset-2">
-                                        Terms & Conditions
-                                    </span>
-                                </span>
-                            </p>
-                        </label>
                         <div className="form-control mt-6">
-                            <button className="btn btn-primary">Login</button>
+                            <button className="btn btn-primary">Submit</button>
+
                         </div>
+                        {
+                            registersuccess &&
+                            <p className="text-green-800 font-bold text-2xl">{registersuccess} </p>
+                        }
+                        {error ? (
+                            <>
+                                <p className=" text-red-600 text-sm text-center">{error}</p>
+                            </>
+                        ) : (
+                            ""
+                        )}
                         {
                             <p>You have a already account ? <Link className="font-medium text-green-700" to={'/Login'}>Login</Link></p>
                         }

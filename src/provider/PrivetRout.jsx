@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { AuthContext } from "./Authprovider";
 import PropTypes from "prop-types";
+import { Navigate } from "react-router-dom";
 
 const PrivetRout = ({children}) => {
     const { user, loading } = useContext(AuthContext)
@@ -9,13 +10,9 @@ const PrivetRout = ({children}) => {
 
          </span> }
     if(!user){
-        children
+       return children
     }
-    return (
-        <div>
-
-        </div>
-    );
+    return <Navigate to={'/Login'} state={location.pathname}></Navigate>
 };
 
 export default PrivetRout;

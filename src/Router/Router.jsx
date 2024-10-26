@@ -5,6 +5,7 @@ import Login from "../pages/Login/Login";
 import Register from "../pages/Rgister/Register";
 import Carddetails from "../pages/PorpartyCard/Carddetails";
 import Faq from "../pages/Home/Faq";
+import PrivetRout from "../provider/PrivetRout";
 
  
 const Router = createBrowserRouter([
@@ -28,11 +29,13 @@ const Router = createBrowserRouter([
            },
            {
             path:'/cartDtls/:id',
-            element:<Carddetails></Carddetails>
+            element:<PrivetRout><Carddetails></Carddetails></PrivetRout>,
+            loader: () => fetch("/data.json")
+
            },
            {
             path:'/FAQ',
-            element:<Faq></Faq>
+            element:<PrivetRout><Faq></Faq></PrivetRout>
            }
 
         ]
