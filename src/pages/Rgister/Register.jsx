@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../provider/Authprovider";
 import Swal from "sweetalert2";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
+import { Helmet } from "react-helmet";
 // import { createUserWithEmailAndPassword } from "firebase/auth";
 // import auth from "../../Firebase/firebse.config";
 // import auth from "../../Firebase/firebse.config";
@@ -80,6 +81,7 @@ const Register = () => {
     }
     return (
         <div className="  min-h-screen">
+            <Helmet><title>Rx_Property | Register</title></Helmet>
             <div className="hero-content flex-col ">
                 <div className="text-center lg:text-left">
                     <h1 className="text-5xl font-bold">Register now!</h1>

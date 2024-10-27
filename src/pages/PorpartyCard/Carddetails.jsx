@@ -1,5 +1,6 @@
 import { useLoaderData, useParams } from "react-router-dom";
 import { toast, Toaster} from "react-hot-toast";
+import { Helmet } from "react-helmet";
 const Carddetails = () => {
     const { id } = useParams();
     const data = useLoaderData();
@@ -23,6 +24,7 @@ const Carddetails = () => {
 
     return (
         <div className="">
+            <Helmet><title>Rx_Property | CardDetails</title></Helmet>
             <Toaster
                 position="top-right"
                 reverseOrder={false}

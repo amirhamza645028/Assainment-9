@@ -1,9 +1,10 @@
+import { Helmet } from "react-helmet";
 
 const Faq = () => {
     return (
 
         <div>
-            
+            <Helmet><title>Rx_Property | FQA</title></Helmet>
             <title>Gpropety | Faq Page</title>
             <div className="collapse bg-basicColor text-justify">
                 <input type="radio" name="my-accordion-1" />

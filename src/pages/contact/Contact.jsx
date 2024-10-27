@@ -1,10 +1,13 @@
 import { FaTelegramPlane, FaWhatsappSquare } from 'react-icons/fa';
 import contact from '../../assets/contact.jpg'
 import { FaFacebook } from 'react-icons/fa6';
+import { Helmet } from 'react-helmet';
 
 const Contact = () => {
     return (
+        
         <div className='w-11/12 mx-auto'>
+            <Helmet><title>Rx_Property | Contact</title></Helmet>
             <div className="card p-2 mt-4 lg:ml-96 bg-base-100 w-96 shadow-xl">
                 <figure>
                     <img className='h-96 w-80 rounded-lg'

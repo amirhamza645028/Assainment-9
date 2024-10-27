@@ -1,10 +1,6 @@
 import { useLoaderData } from "react-router-dom";
 import Banner from "../Banner/Banner";
-<<<<<<< HEAD
 
-=======
-// import Cart from "../Cart/Cart";
->>>>>>> a88369bacb8850717d006e22029afb9ce6456f16
 import PorpartyCard from "../PorpartyCard/PorpartyCard";
 import { Helmet } from "react-helmet";
 import PorpertySale from "../PorpertySale/PorpertySale";
@@ -17,11 +13,7 @@ const Home = () => {
         <div>
             <Helmet><title>Rx_Property | Home</title></Helmet>
             <Banner></Banner>
-<<<<<<< HEAD
 
-=======
-            {/* <Cart></Cart> */}
->>>>>>> a88369bacb8850717d006e22029afb9ce6456f16
             {/* grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-5  */}
             {/* <Estate></Estate> */}
             <div className=" mx-auto">

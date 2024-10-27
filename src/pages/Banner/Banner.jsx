@@ -4,6 +4,7 @@ import cover3 from '../../assets/home-cover-3.jpg'
 import cover4 from '../../assets/home-cover-4.jpg'
 const Banner = () => {
     return (
+        
         <div className="lg:ml-4 m-4 rounded-md carousel h-96 lg:h-128">
             <div id="slide1" className=" carousel-item relative w-full">
                 <img

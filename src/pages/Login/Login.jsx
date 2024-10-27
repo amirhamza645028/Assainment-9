@@ -1,10 +1,12 @@
-import { useContext, useState } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { AuthContext } from '../../provider/AuthProvider'
-import { BsGoogle } from 'react-icons/bs'
+import { useContext } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../provider/Authprovider";
+import { GithubAuthProvider, GoogleAuthProvider } from "firebase/auth/web-extension";
+import auth from "../../Firebase/firebase.config";
+import { BsGithub, BsGoogle } from "react-icons/bs";
+import { Helmet } from "react-helmet";
 
 const Login = () => {
-<<<<<<< HEAD
     const { login,
         signInWithGoogl,
         signInwithGithub
@@ -14,44 +16,33 @@ const Login = () => {
     const navigate = useNavigate();
     const goProvider = new GoogleAuthProvider();
     const giprovider = new GithubAuthProvider();
-    
     const fromHandelar = (e) => {
         e.preventDefault();
         const email = e.target.email.value;
         const password = e.target.password.value;
         console.log(email, password)
-=======
-  const { signIn, signInWithGoogle  , loading} = useContext(AuthContext)
-  const [error, setError] = useState('')
-  const location = useLocation()
-  const navigate = useNavigate()
 
-  const from = location.state?.from?.pathname || '/'
->>>>>>> a88369bacb8850717d006e22029afb9ce6456f16
+        login(email, password)
+            .then(result => {
+                console.log(result.user)
+                navigate(location?.state ? location.state : "/");
+            })
+            .catch(error => {
+                console.error(error)
+            })
 
-  const handleEmailLogin = async (e) => {
-    e.preventDefault()
-    const email = e.target.email.value
-    const password = e.target.password.value
-
-    try {
-      await signIn(email, password)
-      navigate(from, { replace: true })
-    } catch (err) {
-      setError('Invalid email or password')
-      console.error(err)
     }
-  }
+    const GoogleLoginhandelar = (e) => {
+        e.preventDefault();
+        signInWithGoogl(auth, goProvider)
+            .then(result => {
+                console.log(result.user)
+                navigate(location?.state ? location.state : "/");
+            })
+            .catch(error => { console.error(error) }
+            )
 
-  const handleGoogleLogin = async () => {
-    try {
-      await signInWithGoogle()
-      navigate(from, { replace: true })
-    } catch (err) {
-      setError('Google sign-in failed')
-      console.error(err)
     }
-<<<<<<< HEAD
     // githubhandelar
     const GitLoginhandelar = (e) => {
         e.preventDefault();
@@ -65,74 +56,83 @@ const Login = () => {
     }
     return (
         <div className="min-h-screen">
+            <Helmet><title>Rx_Property | Login</title></Helmet>
             <div className="hero-content flex-col ">
                 <div className="text-center lg:text-left">
                     <h1 className="text-5xl font-bold">Login now!</h1>
-=======
-  }
-  if(loading){
-    return <div>loadin..</div>
-  }
->>>>>>> a88369bacb8850717d006e22029afb9ce6456f16
 
-  return (
-    <div className="min-h-screen flex justify-center items-center">
-      <div className="w-full max-w-md p-6 space-y-4 bg-white shadow-md rounded">
-        <h1 className="text-3xl font-bold text-center mb-6">Login</h1>
-        
-        {error && <p className="text-red-500 text-center">{error}</p>}
+                </div>
+                <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+                    <form onSubmit={fromHandelar} className="card-body">
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text">Email</span>
+                            </label>
+                            <input type="email"
+                                placeholder="email"
+                                name="email"
+                                className="input input-bordered" required />
+                        </div>
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text">Password</span>
+                            </label>
+                            <input type="password"
+                                placeholder="password"
+                                name="password"
+                                className="input input-bordered" required />
+                            <label className="label">
+                                <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
+                            </label>
+                        </div>
+                        <div className="form-control mt-6">
+                            <button className="btn btn-primary">Login</button>
+                        </div>
+                        {/* login with */}
+                        <div className=" flex items-center gap-4 mb-2 px-10">
+                            <hr className="w-6/12" />
+                            <span className=" font-bold text-basicColor">Or</span>
+                            <hr className="w-6/12" />
+                        </div>
+                        <div className="px-10  items-center mb-5">
+                            <p className="font-bold text-stone-950 pb-4 text-center">Continue with</p>
+                            <div className="pl-4 gap-6 justify-center">
+                                <div className="mb-4">
+                                    <button
+                                        onClick={GoogleLoginhandelar}
+                                        className="btn  btn-sm btn-outline btn-success   capitalize text-base cursor-pointer text-white bg-basicColor hover:bg-green-600"
+                                    >
 
-        <form onSubmit={handleEmailLogin} className="space-y-4">
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Email</span>
-            </label>
-            <input
-              type="email"
-              name="email"
-              placeholder="Enter your email"
-              className="input input-bordered w-full"
-              required
-            />
-          </div>
+                                        <span>
+                                            <BsGoogle />
+                                        </span>
+                                        Log in With Google
+                                    </button>
+                                </div>
+                                <div>
+                                    <button
+                                        onClick={GitLoginhandelar}
+                                        className="btn  btn-sm cursor-pointer capitalize text-base text-white bg-basicColor btn-outline btn-success hover:bg-green-600"
+                                    >
 
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Password</span>
-            </label>
-            <input
-              type="password"
-              name="password"
-              placeholder="Enter your password"
-              className="input input-bordered w-full"
-              required
-            />
-          </div>
+                                        <span>
+                                            <BsGithub />
+                                        </span>
+                                        Log in With GitHub
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        {
+                            <p>You have a account ? <Link className="font-medium text-red-500" to={'/Register'}>Register</Link></p>
+                        }
+                    </form>
 
-          <button type="submit" className="btn btn-primary w-full mt-4">
-            Login
-          </button>
-        </form>
 
-        <div className="divider my-6">OR</div>
+                </div>
+            </div>
+        </div>
+    );
+};
 
-        <button
-          onClick={handleGoogleLogin}
-          className="btn btn-outline w-full flex items-center justify-center space-x-2"
-        >
-          <BsGoogle className="text-xl" />
-          <span>Login with Google</span>
-        </button>
-
-        <p className="text-center mt-4">
-          Don&apos;t have an account?{' '}
-          <Link to="/register" className="text-blue-500 hover:underline">
-            Register
-          </Link>
-        </p>
-      </div>
-    </div>
-  )
-}
-
-export default Login
+export default Login;
