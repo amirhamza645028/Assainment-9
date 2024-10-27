@@ -127,7 +127,7 @@ const Register = () => {
                             />
                             <span
                                 onClick={() => setshowPassword(!showPassword)}
-                                className=" cursor-pointer absolute right-5 top-12 text-2xl"
+                                className=" cursor-pointer absolute right-12 top-2/3 mb-61 text-2xl"
                             >
                                 {showPassword ? <FaEyeSlash /> : <FaEye />}
                             </span>

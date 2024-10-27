@@ -6,6 +6,7 @@ import Register from "../pages/Rgister/Register";
 import Carddetails from "../pages/PorpartyCard/Carddetails";
 import Faq from "../pages/Home/Faq";
 import PrivetRout from "../provider/PrivetRout";
+import About from "../pages/About/About";
 
  
 const Router = createBrowserRouter([
@@ -17,6 +18,10 @@ const Router = createBrowserRouter([
             path:'/',
             element:<Home></Home>,
             loader: () => fetch("/data.json"),
+           },
+           {
+                path:'/About',
+                element:<About></About>
            },
            {
             path:'/Login',

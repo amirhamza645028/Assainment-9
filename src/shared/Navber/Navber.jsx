@@ -3,26 +3,40 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../provider/Authprovider";
 
 const Navber = () => {
-    const {user,LogOut }= useContext(AuthContext)
+    const { user, LogOut } = useContext(AuthContext)
     const navigate = useNavigate()
-    
-        const logouthandelar = ()=>{
-           
-            LogOut()
-            .then(result =>{
+
+    const logouthandelar = () => {
+
+        LogOut()
+            .then(result => {
                 console.log(result.user)
                 navigate('/')
             })
-            .catch(error=>{
+            .catch(error => {
                 console.log(error)
             })
-        }
+    }
 
     const Navlink = <>
         <li><NavLink to={'/'}>Home</NavLink></li>
-        <li><NavLink to={'/About'}>About</NavLink></li>
-        {/* <li><NavLink to={'/Register'}>Register</NavLink></li>
-        <li><NavLink to={'/Login'}>Login</NavLink></li> */}
+
+        <li onClick={() => document.getElementById('my_modal_4').showModal()}  >
+            <button >About</button>
+            <dialog id="my_modal_4" className="modal">
+                <div className=" text-center modal-box w-11/12 max-w-5xl">
+                    <h3 className="font-bold text-5xl text-gray-950">Hello <br /> Dear User!</h3>
+                    <p className=" font-bold py-4 text-gray-950 text-3xl">This feature <span className="underline text-red-400 "><Link to={'/About'}>About</Link></span> has not been added yet, it will be added very soon and you will see it then</p>
+                    <div className="modal-action">
+                        <form method="dialog">
+                           
+                            <button className="btn">Okay</button>
+                        </form>
+                    </div>
+                </div>
+            </dialog>
+
+        </li>
         <li><NavLink to={'/FAQ'}>FAQ</NavLink></li>
     </>
     return (
@@ -53,74 +67,74 @@ const Navber = () => {
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
-                   {Navlink}
+                    {Navlink}
                 </ul>
             </div>
 
             <div className="navbar-end">
-                
-                <div>
-              {user ? (
-                <>
-                 
-                  <div className="dropdown dropdown-end">
-            <div
-              tabIndex={0}
-              role="button"
-              className="btn btn-ghost btn-circle avatar"
-            >
-              <div className="w-10 rounded-full">
-                <img src={user?.photoURL}/>
-              </div>
-            </div>
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
-            >
-              <li>
-                 <a>{user?.displayName}</a>
-              </li>
-              <li>
-                <a>
-                  Profile
-                </a>
-              </li>
-              <li>
-                <a>My Order</a>
-              </li>
-              <li>
-                <a >Log out</a>
-              </li>
-            </ul>
-          </div>
 
-                </>
-              ) : ("")}
-            </div>
-          {/* </label> */}
-          {user ? (
-            <button
-              onClick={logouthandelar}
-              className="btn btn-outline border-none btn-error lg:text-xl capitalize lg:ms-2 text-white hover:bg-basicColor"
-            >
-              Log out
-            </button>
-          ) : (
-            <>
-              <Link
-                to={"/login"}
-                className="btn btn-outline btn-primary  border-none lg:text-lg capitalize lg:ms-1 text-white bg-basicColor"
-              >
-                Log in
-              </Link>
-              <Link
-                to={"/register"}
-                className="btn btn-outline btn-accent border-none lg:text-lg capitalize text-white hover:bg-basicColor"
-              >
-                Register
-              </Link>
-            </>
-          )}
+                <div>
+                    {user ? (
+                        <>
+
+                            <div className="dropdown dropdown-end">
+                                <div
+                                    tabIndex={0}
+                                    role="button"
+                                    className="btn btn-ghost btn-circle avatar"
+                                >
+                                    <div className="w-10 rounded-full">
+                                        <img src={user?.photoURL} />
+                                    </div>
+                                </div>
+                                <ul
+                                    tabIndex={0}
+                                    className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+                                >
+                                    <li>
+                                        <a>{user?.displayName}</a>
+                                    </li>
+                                    <li>
+                                        <a>
+                                            Profile
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a>My Order</a>
+                                    </li>
+                                    <li>
+                                        <a >Log out</a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </>
+                    ) : ("")}
+                </div>
+                {/* </label> */}
+                {user ? (
+                    <button
+                        onClick={logouthandelar}
+                        className="btn btn-outline border-none btn-error lg:text-xl capitalize lg:ms-2 text-white hover:bg-basicColor"
+                    >
+                        Log out
+                    </button>
+                ) : (
+                    <>
+                        <Link
+                            to={"/login"}
+                            className="btn btn-outline btn-primary  border-none lg:text-lg capitalize lg:ms-1 text-white bg-basicColor"
+                        >
+                            Log in
+                        </Link>
+                        <Link
+                            to={"/register"}
+                            className="btn btn-outline btn-accent border-none lg:text-lg capitalize text-white hover:bg-basicColor"
+                        >
+                            Register
+                        </Link>
+                    </>
+                )}
             </div>
         </div>
     );
