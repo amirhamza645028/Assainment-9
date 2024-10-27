@@ -38,6 +38,20 @@ const Navber = () => {
 
         </li>
         <li><NavLink to={'/FAQ'}>FAQ</NavLink></li>
+        {user ? (
+          <>
+            <li>
+              <NavLink to={'/profile'}>Profile</NavLink>
+            </li>
+            <li>
+              <NavLink to={"/contact"}>
+                Contact
+              </NavLink>
+            </li>
+          </>
+        ) : (
+          ""
+        )}
     </>
     return (
         <div className="navbar bg-base-100">

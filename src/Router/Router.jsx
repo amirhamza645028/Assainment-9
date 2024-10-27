@@ -7,6 +7,8 @@ import Carddetails from "../pages/PorpartyCard/Carddetails";
 import Faq from "../pages/Home/Faq";
 import PrivetRout from "../provider/PrivetRout";
 import About from "../pages/About/About";
+import Profile from "../pages/User/Profile";
+import Contact from "../pages/contact/Contact";
 
  
 const Router = createBrowserRouter([
@@ -41,6 +43,14 @@ const Router = createBrowserRouter([
            {
             path:'/FAQ',
             element:<PrivetRout><Faq></Faq></PrivetRout>
+           },
+           {
+            path:'/profile',
+            element:<Profile></Profile>
+           },
+           {
+            path:"/contact",
+            element:<Contact></Contact>
            }
 
         ]
